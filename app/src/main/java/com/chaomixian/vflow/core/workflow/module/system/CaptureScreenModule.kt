@@ -146,10 +146,12 @@ class CaptureScreenModule : BaseModule() {
             )
         )
 
-        val imageUri: Uri? = when (mode) {
-            MODE_AUTO -> performAutomaticCapture(context, onProgress, localizedContext)
-            MODE_SCREENCAP -> performShellCapture(appContext, context.workDir, onProgress)
-            else -> null
+        val imageUri: Uri? = com.chaomixian.vflow.ui.float.FloatPanelScreenshotGuard.hiddenDuringCapture(appContext) {
+            when (mode) {
+                MODE_AUTO -> performAutomaticCapture(context, onProgress, localizedContext)
+                MODE_SCREENCAP -> performShellCapture(appContext, context.workDir, onProgress)
+                else -> null
+            }
         }
 
         if (imageUri != null) {

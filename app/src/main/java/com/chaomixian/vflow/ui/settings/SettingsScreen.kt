@@ -31,6 +31,7 @@ import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.HideImage
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Security
@@ -472,6 +473,7 @@ fun SettingsScreen(
                     checked = uiState.allowShowOnLockScreen,
                     onCheckedChange = actions.onSetAllowShowOnLockScreen
                 )
+                FloatPanelScreenshotSwitches()
                 NativeSwitchRow(
                     title = apiEnabledTitle,
                     subtitle = apiEnabledSubtitle,
@@ -1337,3 +1339,39 @@ private fun settingsItemShape(position: SettingsGroupPosition): RoundedCornerSha
             bottomEnd = 28.dp
         )
     }
+
+
+@Composable
+private fun FloatPanelScreenshotSwitches() {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    var hideOwn by remember {
+        mutableStateOf(com.chaomixian.vflow.ui.float.FloatPanelScreenshotGuard.isHideFromOwnCapture(context))
+    }
+    var hideSystem by remember {
+        mutableStateOf(com.chaomixian.vflow.ui.float.FloatPanelScreenshotGuard.isHideFromSystemScreenshot(context))
+    }
+    NativeSwitchRow(
+        title = "Hide float panel in app screenshots",
+        subtitle = "Hide the floating panel while workflows capture the screen",
+        icon = Icons.Default.VisibilityOff,
+        tone = warmTone(),
+        position = SettingsGroupPosition.Middle,
+        checked = hideOwn,
+        onCheckedChange = {
+            hideOwn = it
+            com.chaomixian.vflow.ui.float.FloatPanelScreenshotGuard.setHideFromOwnCapture(context, it)
+        }
+    )
+    NativeSwitchRow(
+        title = "Hide float panel in system screenshots",
+        subtitle = "Mark the floating panel secure so phone screenshots and recordings skip it. Reopen the panel to apply",
+        icon = Icons.Default.HideImage,
+        tone = warmTone(),
+        position = SettingsGroupPosition.Middle,
+        checked = hideSystem,
+        onCheckedChange = {
+            hideSystem = it
+            com.chaomixian.vflow.ui.float.FloatPanelScreenshotGuard.setHideFromSystemScreenshot(context, it)
+        }
+    )
+}

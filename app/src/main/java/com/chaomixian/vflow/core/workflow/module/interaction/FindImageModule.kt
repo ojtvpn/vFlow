@@ -303,7 +303,10 @@ class FindImageModule : BaseModule() {
         }
     }
 
-    private suspend fun captureScreen(context: Context, workDir: File): Uri? {
+    private suspend fun captureScreen(context: Context, workDir: File): Uri? =
+        com.chaomixian.vflow.ui.float.FloatPanelScreenshotGuard.hiddenDuringCapture(context) { captureScreenUnguarded(context, workDir) }
+
+    private suspend fun captureScreenUnguarded(context: Context, workDir: File): Uri? {
         val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss_SSS", Locale.getDefault()).format(Date())
         val fileName = "find_image_screen_$timestamp.png"
         val cacheFile = File(workDir, fileName)

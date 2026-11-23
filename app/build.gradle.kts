@@ -21,7 +21,7 @@ android {
     val hasDebugKeystore = debugKeystoreFile.exists()
 
     defaultConfig {
-        applicationId = "com.chaomixian.vflow"
+        applicationId = "com.chaomixian.vflow.mod"
         minSdk = 29
         targetSdk = 36
         versionCode = 49

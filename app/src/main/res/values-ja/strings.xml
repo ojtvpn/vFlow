@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">vFlow</string>
+    <string name="app_name">aFlow</string>
     <string name="accessibility_service_description">vFlow サービスは、自動化されたプロセスを通じてさまざまなタスクを実行できます。</string>
     <string name="accessibility_service_description_disguise">vFlow サービスは、自動化されたプロセスを通じてさまざまなタスクを実行できます。 (アクセシビリティ偽装有効)</string>
     <string name="title_home">ホーム</string>

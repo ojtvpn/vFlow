@@ -45,6 +45,13 @@ object AgentUtils {
     suspend fun captureScreen(
         context: Context,
         execContext: com.chaomixian.vflow.core.execution.ExecutionContext
+    ): ScreenshotResult = com.chaomixian.vflow.ui.float.FloatPanelScreenshotGuard.hiddenDuringCapture(context) {
+        captureScreenUnguarded(context, execContext)
+    }
+
+    private suspend fun captureScreenUnguarded(
+        context: Context,
+        execContext: com.chaomixian.vflow.core.execution.ExecutionContext
     ): ScreenshotResult {
         // 检查是否有目标显示 ID
         val displayId = execContext.getVariableAsInt("_target_display_id") ?: 0

@@ -149,6 +149,8 @@ class WorkflowsFloatPanelService : Service() {
             updateEmptyState()
         }
 
+        FloatPanelScreenshotGuard.applySecureFlag(this, params!!)
+        FloatPanelScreenshotGuard.register(floatView!!)
         windowManager.addView(floatView, params)
         observeExecutionState()
         startAutoCollapseTimer()
@@ -299,6 +301,8 @@ class WorkflowsFloatPanelService : Service() {
         }
 
         collapsedView = createCollapsedView()
+        FloatPanelScreenshotGuard.applySecureFlag(this, collapsedParams!!)
+        collapsedView?.let { FloatPanelScreenshotGuard.register(it) }
         windowManager.addView(collapsedView, collapsedParams)
         floatView?.let { windowManager.removeView(it) }
 
@@ -321,6 +325,7 @@ class WorkflowsFloatPanelService : Service() {
             y = (200 * displayMetrics.density).toInt()
         }
 
+        params?.let { FloatPanelScreenshotGuard.applySecureFlag(this, it) }
         floatView?.let { windowManager.addView(it, params) }
         startAutoCollapseTimer()
     }

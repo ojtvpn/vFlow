@@ -92,8 +92,10 @@ class CoreCaptureScreenModule : BaseModule() {
         onProgress(ProgressUpdate("正在截屏..."))
 
         // 3. 执行截图并保存到工作流临时目录
-        val result = withContext(Dispatchers.IO) {
-            captureAndSaveToWorkDir(format, quality, maxWidth, maxHeight, context.workDir)
+        val result = com.chaomixian.vflow.ui.float.FloatPanelScreenshotGuard.hiddenDuringCapture(context.applicationContext) {
+            withContext(Dispatchers.IO) {
+                captureAndSaveToWorkDir(format, quality, maxWidth, maxHeight, context.workDir)
+            }
         }
 
         return when (result) {
